@@ -28,6 +28,20 @@ const userSchema = new Schema({
     money: {
         type: String,
         default: "naqt"
+    },
+    lang: {
+        type: String,
+        default: "uz"
+    },
+    confirmation: {
+        type: Number,
+        default: 0
+    },
+    orderdate: {
+        type: String
+    },
+    ordertime: {
+        type: String
     }
     
 });

@@ -24,6 +24,12 @@ const orderSchema = new Schema({
     location: {
         lat : String,
         lon : String
+    },
+    orderdate: {
+        type: String
+    },
+    ordertime: {
+        type: String
     }
     
 });
