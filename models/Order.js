@@ -30,6 +30,9 @@ const orderSchema = new Schema({
     },
     ordertime: {
         type: String
+    },
+    location_name: {
+        type: String
     }
     
 });
