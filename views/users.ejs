@@ -1,0 +1,31 @@
+<%- include('includes/header') %>
+
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Foydalanuvchilar</h3>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>Nomi</th>
+            <th style="width: 40px">Narx</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% user.map((users, i) => { %>
+          <tr>
+            <td><%= i+1 %>.</td>
+            <td><%= users.firstname %></td>
+            <td><span class=""><%= users.phone_number %></span></td>
+          </tr>
+          <%  }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

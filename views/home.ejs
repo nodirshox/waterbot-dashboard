@@ -1,0 +1,42 @@
+<%- include('includes/header') %>
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-12" >
+        <div class="info-box mycursor" onclick="location.href='/item';">
+            <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text"><a href="/item">Mahsulotlar</a></span>
+                <span class="info-box-number"><%= items %></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-12" >
+        <div class="info-box mycursor" onclick="location.href='/category';">
+            <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text"><a href="/category">Kategoriyalar</a></span>
+                <span class="info-box-number"><%= categories %></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-12" >
+        <div class="info-box mycursor" onclick="location.href='/order';">
+            <span class="info-box-icon bg-warning"><i class="far fa-envelope" ></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text"><a href="/order">Buyurtmalar</a></span>
+                <span class="info-box-number"><%= orders %></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-12" >
+        <div class="info-box mycursor" onclick="location.href='/user';">
+            <span class="info-box-icon bg-danger"><i class="far fa-envelope"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text"><a href="/user">Foydalanuvchilar</a></span>
+                <span class="info-box-number"><%= users %></span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%- include('includes/footer') %>

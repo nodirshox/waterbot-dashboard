@@ -1,0 +1,17 @@
+<%- include('includes/header') %>
+      
+<div class="col-md-12">
+  <div class="card card-default">
+    <div class="card-header">  <a href="/order" class="btn-default btn">Buyurtmalar</a></div>
+    <div class="card-body">
+      <b>Kim:</b> <%= cat.firstname %><br />
+      <b>Telefon:</b> <%= cat.phone %><br />
+      <b>To'lov turi:</b> <%= cat.money %><br />
+      <b>Buyurtma:</b> <%= cat.order %><br />
+      <b>Vaqt:</b> <%= time %><br />
+      <b>Joylashuv:</b> <a href="https://maps.google.com/?q=<%= cat.location.lat %>,<%= cat.location.lon %>" target="_black"><i class="fa fa-location-arrow nav_icon"></i></a>
+    </div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

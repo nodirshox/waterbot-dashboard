@@ -1,0 +1,44 @@
+<%- include('includes/header') %>
+
+<div class="col-md-12">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Yangi mahsulot</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <form role="form" action="/new-item" method="POST">
+      <div class="card-body">
+        <div class="form-group">
+          <label>Mahsulot nomi</label>
+          <input type="text" name="name" class="form-control" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+          <label>Mahsulot haqida</label>
+          <input type="text" name="description" class="form-control" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label>Narxi</label>
+            <input type="number" name="price" min="1" class="form-control" placeholder="0" autocomplete="off" required>
+        </div>
+        <div class="form-group">
+            <label>Kategoriya</label><br />
+            <select id="category" name="category" class="form-control">
+                <% cat.map((category) => { %>
+                <option value="<%= category._id %>" id="<%= category._id %>"><%= category.name %></option>
+                <%  }) %>
+            </select>
+        </div>
+        <div class="form-group"></div>
+            <label>Mahsulot rasmi uchun havola</label>
+            <input type="text" name="picture" class="form-control" placeholder="http://example.com/food.jpg" autocomplete="off" required>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary">Qo'shish</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

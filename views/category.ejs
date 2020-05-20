@@ -1,0 +1,36 @@
+<%- include('includes/header') %>
+    
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Kategoriyalar</h3>
+        <div class="card-tools">
+          <ul class="pagination pagination-sm float-right">
+            <li class="page-item"><a class="btn btn-block btn-primary" href="/new-category" >Kategoriya qo'shish</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10px">#</th>
+              <th>Nomi</th>
+              <th style="width: 40px">Izoh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cat.map((cat, i) => { %>
+            <tr onclick="location.href='/category/<%= cat._id %>';" class="mycursor">
+              <td><%= i+1 %>.</td>
+              <td><a href="/category/<%=cat._id%>"><%= cat.name %></a></a></td>
+              <td><span class=""><%= cat.description %></span></td>
+            </tr>
+            <%  }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<%- include('includes/footer') %>

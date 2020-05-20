@@ -1,0 +1,14 @@
+<%- include('includes/header') %>
+      
+<div class="col-md-12">
+  <div class="card card-default">
+    <div class="card-header">  <a href="/category" class="btn-default btn">Kategoriyalar</a></div>
+    <div class="card-body">
+      <b>Nomi:</b> <%= cat.name %><br />
+      <b>Izoh:</b> <%= cat.description %><br><br>
+      <a href="/edit-category/<%=cat._id%>" class="btn-primary btn">O'zgartirish</a>
+    </div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

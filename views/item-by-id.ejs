@@ -1,0 +1,29 @@
+<%- include('includes/header') %>
+
+<div class="col-md-12">
+  <div class="card card-default">
+    <div class="card-header">  <a href="/item" class="btn-default btn">Barcha mahsulotlar</a></div>
+    <div class="card-body">
+      <b>Nomi:</b> <%= product.name %><br />
+      <b>Haqida:</b> <%= product.description %><br />
+      <b>Narxi:</b> <%= product.price %> so'm<br />
+      <b>Kategoriya:</b> <%= product.category.name %><br />
+
+      <b>Holati:</b> <%if (product.status === 1) { %>
+      Faol
+      <% } else if(product.status === 2) { %>
+      Nofaol (ko'rinadi, buyurta qila olishmaydi)
+      <% } else if(product.status === 0) { %>
+      Arxiv (Ko'rinmaydi)
+      <% } %>
+      <br />
+      <a href="/edit/<%= product._id %>" class="btn-primary btn">O'zgartirish</a>
+      <br><br>
+      <img src="<%= product.picture %>" alt="item picture" class="food-images">
+      
+    </div>
+  </div>
+</div>
+
+
+<%- include('includes/footer') %>

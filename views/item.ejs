@@ -1,0 +1,36 @@
+<%- include('includes/header') %>
+
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Mahsulotlar</h3>
+      <div class="card-tools">
+        <ul class="pagination pagination-sm float-right">
+          <li class="page-item"><a class="btn btn-block btn-primary" href="/new-item" >Tovar qo'shish</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>Nomi</th>
+            <th style="width: 40px">Narx</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% product.map((food, i) => { %>
+          <tr onclick="location.href='/item/<%= food._id %>';" class="mycursor">
+            <td><%= i+1 %>.</td>
+            <td><a href="/item/<%= food._id %>"><%= food.name %></a></td>
+            <td><span class=""><%= food.price.toLocaleString() %></span></td>
+          </tr>
+          <%  }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>
