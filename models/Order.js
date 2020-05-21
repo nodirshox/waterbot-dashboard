@@ -33,6 +33,10 @@ const orderSchema = new Schema({
     },
     location_name: {
         type: String
+    },
+    status: {
+        type: Number,
+        default: 1
     }
     
 });

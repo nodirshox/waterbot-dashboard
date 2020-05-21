@@ -11,6 +11,16 @@
       <b>Registratsiya payti:</b> <%= time %><br />
       <b>Yetkazib berish vaqti:</b> <%= cat.orderdate %>, <%= cat.ordertime %><br />
       <b>Manzil:</b> <%= cat.location %><br />
+      <b>Buyurtma holati:</b> <%if (cat.status === 1) { %>
+        <span class="badge badge-warning">Buyurtma kelib tushgan</span>
+        <% } else if(cat.status === 2) { %>
+        <span class="badge badge-success">Buyurtma yetkazildi</span>
+        <% } else if(cat.status === 0) { %>
+        <span class="badge badge-danger">Buyurtma yetkazilmadi</span>
+        
+        <% } %>
+        <br />
+        <a href="/edit-order/<%= cat._id %>" class="btn-primary btn">O'zgartirish</a>
     </div>
   </div>
 </div>

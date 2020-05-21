@@ -17,6 +17,7 @@
             <th style="width: 10px">#</th>
             <th>Kim</th>
             <th style="width: 40px">Vaqt</th>
+            <th>Holati</th>
           </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
             <td><%= i+1 %>.</td>
             <td><a href="/order/<%= users._id %>"><%= users.firstname %></a></td>
             <td><%= users.registration.toLocaleString() %></td>
+            <td><%if (users.status === 1) { %> 🕔 <% } else if(users.status === 2) { %> ✅ <% } else if(users.status === 0) { %> ❌ <% } %></td>
           </tr>
           <%  }) %>
         </tbody>

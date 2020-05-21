@@ -204,6 +204,20 @@ router.get('/order/:id', function(req, res) {
     }
   })
 })
+router.get('/edit-order/:id', function(req, res) {
+  Order.findOne({ _id: req.params.id }).exec(function(err, product) {
+    if(err) {
+      res.send('Xatolik yuz berdi')
+    } else {
+      res.render('edit-order',{product})
+    }
+  })
+})
+router.post('/edit-order/:id', function(req, res) {
+  Order.findOneAndUpdate({ _id: req.params.id }, {$set: req.body}, function(err, result) {
+    res.redirect(`/order/${req.params.id}`)
+  })
+})
 // Error handler
 router.get('*', function(req, res) {  
     res.render('404');
