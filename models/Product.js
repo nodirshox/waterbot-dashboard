@@ -29,6 +29,14 @@ const productSchema = new Schema({
     status: {
         type: Number,
         default: 1
+    },
+    min: {
+        type: Number,
+        default: 1
+    },
+    max: {
+        type: Number,
+        default: 8
     }
 });
 
