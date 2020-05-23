@@ -13,13 +13,13 @@
       <b>Manzil:</b> <%= cat.location %><br />
       <b>Yetkazildi:</b> <%= cat.delivery_person %><br />
       <b>Buyurtma holati:</b> <%if (cat.status === 1) { %>
-        🚕 Buyurtma buyurtmachilarga berilgan
+        <i class="fa fa-car nav_icon"></i> Buyurtma buyurtmachilarga berilgan
         <% } else if(cat.status === 2) { %>
-        ✅ Buyurtma yetkazildi
+          <i class="fa fa-check-circle nav_icon"></i> Buyurtma yetkazildi
         <% }else if(cat.status === 3) { %>
-          🕔 Buyurtma kelib tushgan
+          <i class="fa fa-clock nav_icon"></i> Buyurtma kelib tushgan
           <% } else if(cat.status === 0) { %>
-        ❌ Buyurtma yetkazilmadi
+            <i class="fa fa-trash-alt nav_icon"></i> Buyurtma yetkazilmadi
         
         <% } %>
         <br />

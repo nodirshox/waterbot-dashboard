@@ -7,10 +7,10 @@
       <div class="card-tools">
         <ul class="pagination pagination-sm m-0 float-right">
           <li class="page-item"><a class="page-link" href="/order/"><i class="fa fa-th nav_icon"></i></a></li>
-          <li class="page-item"><a class="page-link" href="/order/active">🕔</a></li>
-          <li class="page-item"><a class="page-link" href="/order/ondelivery">🚕</a></li>
-          <li class="page-item"><a class="page-link" href="/order/finished">✅</a></li>
-          <li class="page-item"><a class="page-link" href="/order/undone">❌</a></li>
+          <li class="page-item"><a class="page-link" href="/order/active"><i class="fa fa-clock nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/order/ondelivery"><i class="fa fa-car nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/order/finished"><i class="fa fa-check-circle nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/order/undone"><i class="fa fa-trash-alt nav_icon"></i></a></li>
           <li class="page-item"><a class="page-link" href="<%= channel %>"><i class="fa fa-location-arrow nav_icon"></i></a></li>
           
         </ul>
@@ -34,11 +34,11 @@
             <td><%= users.orderdate %></td>
             <td>
               <% if(users.status === 1) { 
-                %> 🚕 <% 
+                %> <i class="fa fa-car nav_icon"></i> <% 
               } else if (users.status === 3) { 
-                %> 🕔 <% } else if (users.status === 2) { 
-              %> ✅ <% } else if (users.status === 0) { 
-                %> ❌ <% } %>
+                %> <i class="fa fa-clock nav_icon"></i> <% } else if (users.status === 2) { 
+              %> <i class="fa fa-check-circle nav_icon"></i> <% } else if (users.status === 0) { 
+                %> <i class="fa fa-trash-alt nav_icon"></i> <% } %>
               </td>
           </tr>
           <%  }) %>
