@@ -21,18 +21,20 @@
         <div class="form-group">
             <label>Holati</label><br />
             <select id="status" name="status" class="form-control">
-                <% for(var i = 0; i <= 2; i++ ) {
+                <% for(var i = 0; i <= 3; i++ ) {
                     var myoption
                     var item=""
                     if(product.status === i) {
                         myoption = "selected"
                     } else { myoption = "" }
                     if(i === 0) {
-                        item = "Yetkazilmadi" 
+                        item = "❌ Buyurtma yetkazilmadi" 
                     } else if ( i === 1) {
-                        item = "Buyurtma kelib tushgan"
+                        item = "🚕 Buyurtma buyurtmachilarga berilgan"
+                    } else if(i === 3){
+                        item = "🕔 Buyurtma kelib tushgan"
                     } else if ( i === 2) {
-                        item = "Yetkazib berildi"
+                        item = "✅ Buyurtma yetkazildi"
                     } else { itemname = "Xatolik" } %>
                     <option value="<%= i %>" <%= myoption %> ><%= item %></option>
                 <% } %>

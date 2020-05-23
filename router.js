@@ -187,10 +187,125 @@ router.get('/user', function(req, res) {
 // All orders
 router.get('/order', function(req, res) {
   Order.find({}).sort({registration: 'desc'}).exec(function(err, order) {
+    const html = order.map((f, i) => {
+      var obj = {
+          firstname: f.firstname,
+          orderdate: f.orderdate,
+          status: f.status,
+          _id: f._id
+      }
+      return obj
+
+  })
+    html.sort(function(a, b){
+      var aa = a.orderdate.split('.').reverse().join(),
+          bb = b.orderdate.split('.').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+      });
     if(err){
       res.send('Xatolik yuz berdi.')
     } else {
-      res.render('orders',{order, channel})
+      res.render('orders',{html, channel})
+    }
+  })
+})
+// Active orders
+router.get('/order/active', function(req, res) {
+  Order.find({status: 3}).exec(function(err, order) {
+    const html = order.map((f, i) => {
+      var obj = {
+          firstname: f.firstname,
+          orderdate: f.orderdate,
+          status: f.status,
+          _id: f._id
+      }
+      return obj
+
+  })
+    html.sort(function(a, b){
+      var aa = a.orderdate.split('.').reverse().join(),
+          bb = b.orderdate.split('.').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+      });
+    if(err){
+      res.send('Xatolik yuz berdi.')
+    } else {
+      res.render('orders',{html, channel})
+    }
+  })
+})
+// Finished order
+router.get('/order/finished', function(req, res) {
+  Order.find({status: 2}).exec(function(err, order) {
+    const html = order.map((f, i) => {
+      var obj = {
+          firstname: f.firstname,
+          orderdate: f.orderdate,
+          status: f.status,
+          _id: f._id
+      }
+      return obj
+
+  })
+    html.sort(function(a, b){
+      var aa = a.orderdate.split('.').reverse().join(),
+          bb = b.orderdate.split('.').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+      });
+    if(err){
+      res.send('Xatolik yuz berdi.')
+    } else {
+      res.render('orders',{html, channel})
+    }
+  })
+})
+// Finished order
+router.get('/order/ondelivery', function(req, res) {
+  Order.find({status: 1}).exec(function(err, order) {
+    const html = order.map((f, i) => {
+      var obj = {
+          firstname: f.firstname,
+          orderdate: f.orderdate,
+          status: f.status,
+          _id: f._id
+      }
+      return obj
+
+  })
+    html.sort(function(a, b){
+      var aa = a.orderdate.split('.').reverse().join(),
+          bb = b.orderdate.split('.').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+      });
+    if(err){
+      res.send('Xatolik yuz berdi.')
+    } else {
+      res.render('orders',{html, channel})
+    }
+  })
+})
+// Undone
+router.get('/order/undone', function(req, res) {
+  Order.find({status: 0}).exec(function(err, order) {
+    const html = order.map((f, i) => {
+      var obj = {
+          firstname: f.firstname,
+          orderdate: f.orderdate,
+          status: f.status,
+          _id: f._id
+      }
+      return obj
+
+  })
+    html.sort(function(a, b){
+      var aa = a.orderdate.split('.').reverse().join(),
+          bb = b.orderdate.split('.').reverse().join();
+      return aa < bb ? -1 : (aa > bb ? 1 : 0);
+      });
+    if(err){
+      res.send('Xatolik yuz berdi.')
+    } else {
+      res.render('orders',{html, channel})
     }
   })
 })

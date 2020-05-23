@@ -3,10 +3,16 @@
 <div class="col-12">
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Buyurtmalar</h3>
+      <h3 class="card-title">Buyurtma</h3>
       <div class="card-tools">
-        <ul class="pagination pagination-sm float-right">
-          <li class="page-item"><a class="btn btn-block btn-primary" href="<%= channel %>" ><i class="fa fa-location-arrow nav_icon"></i> Kanalga qo'shilish</a></li>
+        <ul class="pagination pagination-sm m-0 float-right">
+          <li class="page-item"><a class="page-link" href="/order/"><i class="fa fa-th nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/order/active">🕔</a></li>
+          <li class="page-item"><a class="page-link" href="/order/ondelivery">🚕</a></li>
+          <li class="page-item"><a class="page-link" href="/order/finished">✅</a></li>
+          <li class="page-item"><a class="page-link" href="/order/undone">❌</a></li>
+          <li class="page-item"><a class="page-link" href="<%= channel %>"><i class="fa fa-location-arrow nav_icon"></i></a></li>
+          
         </ul>
       </div>
     </div>
@@ -21,17 +27,25 @@
           </tr>
         </thead>
         <tbody>
-          <% order.map((users, i) => { %>
+          <% html.map((users, i) => { %>
           <tr onclick="location.href='/order/<%= users._id %>';" class="mycursor">
             <td><%= i+1 %>.</td>
             <td><a href="/order/<%= users._id %>"><%= users.firstname %></a></td>
-            <td><%= users.registration.toLocaleString() %></td>
-            <td><%if (users.status === 1) { %> 🕔 <% } else if(users.status === 2) { %> ✅ <% } else if(users.status === 0) { %> ❌ <% } %></td>
+            <td><%= users.orderdate %></td>
+            <td>
+              <% if(users.status === 1) { 
+                %> 🚕 <% 
+              } else if (users.status === 3) { 
+                %> 🕔 <% } else if (users.status === 2) { 
+              %> ✅ <% } else if (users.status === 0) { 
+                %> ❌ <% } %>
+              </td>
           </tr>
           <%  }) %>
         </tbody>
       </table>
     </div>
+
   </div>
 </div>
 

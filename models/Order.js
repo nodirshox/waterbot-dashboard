@@ -15,8 +15,9 @@ const orderSchema = new Schema({
     phone: {
         type: String
     },
-    money: {
-        type: String
+    comment: {
+        type: String,
+        default: "-"
     },
     order: {
         type: String
@@ -36,7 +37,10 @@ const orderSchema = new Schema({
     },
     status: {
         type: Number,
-        default: 1
+        default: 3
+    },
+    delivery_person: {
+        type: String
     }
     
 });
