@@ -17,17 +17,21 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    location: {
-        lat : String,
-        lon : String
-    },
     busket: [{
         id: {type: Schema.Types.ObjectId, ref: 'Product'},
         quantity: Number
     }],
-    money: {
+    comment: {
         type: String,
-        default: "naqt"
+        default: "-"
+    },
+    commentconfirm: {
+        type: Number,
+        default: 0
+    },
+    whichlocation: {
+        type: Number,
+        default: 0
     },
     lang: {
         type: String,
@@ -42,7 +46,11 @@ const userSchema = new Schema({
     },
     ordertime: {
         type: String
-    }
+    },
+    location: [{
+        type: String,
+        default: []
+    }]
     
 });
 

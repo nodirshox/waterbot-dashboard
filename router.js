@@ -186,7 +186,11 @@ router.get('/user', function(req, res) {
 })
 // All orders
 router.get('/order', function(req, res) {
-  Order.find({}).sort({registration: 'desc'}).exec(function(err, order) {
+  Order.find({}).sort({registration: 'desc'}).exec(function(err, order) {    
+    var total = 0
+    for(var i=0; i < order.length; i++) {
+      total+=order[i].total
+    }
     const html = order.map((f, i) => {
       var obj = {
           firstname: f.firstname,
@@ -205,13 +209,17 @@ router.get('/order', function(req, res) {
     if(err){
       res.send('Xatolik yuz berdi.')
     } else {
-      res.render('orders',{html, channel})
+      res.render('orders',{html, channel, total})
     }
   })
 })
 // Active orders
 router.get('/order/active', function(req, res) {
   Order.find({status: 3}).exec(function(err, order) {
+    var total = 0
+    for(var i=0; i < order.length; i++) {
+      total+=order[i].total
+    }
     const html = order.map((f, i) => {
       var obj = {
           firstname: f.firstname,
@@ -230,13 +238,17 @@ router.get('/order/active', function(req, res) {
     if(err){
       res.send('Xatolik yuz berdi.')
     } else {
-      res.render('orders',{html, channel})
+      res.render('orders',{html, channel, total})
     }
   })
 })
 // Finished order
 router.get('/order/finished', function(req, res) {
   Order.find({status: 2}).exec(function(err, order) {
+    var total = 0
+    for(var i=0; i < order.length; i++) {
+      total+=order[i].total
+    }
     const html = order.map((f, i) => {
       var obj = {
           firstname: f.firstname,
@@ -255,13 +267,17 @@ router.get('/order/finished', function(req, res) {
     if(err){
       res.send('Xatolik yuz berdi.')
     } else {
-      res.render('orders',{html, channel})
+      res.render('orders',{html, channel, total})
     }
   })
 })
 // Finished order
 router.get('/order/ondelivery', function(req, res) {
   Order.find({status: 1}).exec(function(err, order) {
+    var total = 0
+    for(var i=0; i < order.length; i++) {
+      total+=order[i].total
+    }
     const html = order.map((f, i) => {
       var obj = {
           firstname: f.firstname,
@@ -280,13 +296,17 @@ router.get('/order/ondelivery', function(req, res) {
     if(err){
       res.send('Xatolik yuz berdi.')
     } else {
-      res.render('orders',{html, channel})
+      res.render('orders',{html, channel, total})
     }
   })
 })
 // Undone
 router.get('/order/undone', function(req, res) {
   Order.find({status: 0}).exec(function(err, order) {
+    var total = 0
+    for(var i=0; i < order.length; i++) {
+      total+=order[i].total
+    }
     const html = order.map((f, i) => {
       var obj = {
           firstname: f.firstname,
@@ -305,7 +325,7 @@ router.get('/order/undone', function(req, res) {
     if(err){
       res.send('Xatolik yuz berdi.')
     } else {
-      res.render('orders',{html, channel})
+      res.render('orders',{html, channel, total})
     }
   })
 })

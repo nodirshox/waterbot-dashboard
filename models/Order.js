@@ -23,16 +23,12 @@ const orderSchema = new Schema({
         type: String
     },
     location: {
-        lat : String,
-        lon : String
+        type: String
     },
     orderdate: {
         type: String
     },
     ordertime: {
-        type: String
-    },
-    location_name: {
         type: String
     },
     status: {
@@ -41,7 +37,11 @@ const orderSchema = new Schema({
     },
     delivery_person: {
         type: String
+    },
+    total: {
+        type: Number
     }
+
     
 });
 
