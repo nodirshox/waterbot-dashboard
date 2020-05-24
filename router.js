@@ -49,12 +49,40 @@ router.get('/', function(req, res) {
 })
 
 // Show all items
-router.get('/item', function(req, res) {
-  Product.find({}).populate('category').exec((err, product) => {
-    if(err)
-      res.send('Xatolik yuz berdi')
-    else
-      res.render('item', { product })
+router.get('/item', paginatedResultsusers(Product), function(req, res) {
+  var limits = 10 // limit for items per page
+  var product, previous, next
+  if(res.paginatedResults.results) {
+    product = res.paginatedResults.results
+  }
+  if(res.paginatedResults.previous) {
+    previous = res.paginatedResults.previous
+  }
+  if(res.paginatedResults.next) {
+    next = res.paginatedResults.next
+  }
+  var current = req.query.page
+  var starting
+  if(current > 1) {
+    starting = (req.query.page-1) * req.query.limit + 1
+  } else {
+    starting = 1
+  }
+  var limit = req.query.limit
+  Product.find({}).exec(function(err, users) {
+    if(users) {
+      var total = users.length
+      var data = users.length / req.query.limit
+      if (data === parseInt(data, 10)) {
+        var lastpage = Math.floor(users.length / req.query.limit)
+      } else { var lastpage = Math.floor(users.length / req.query.limit) + 1 }
+
+      if(req.query.limit && req.query.page) {
+        res.render('item',{product, previous, next, current, starting, limits, lastpage, limit, total})
+      } else {
+        res.redirect('item?page=1&limit=' + limits)
+      }
+    }
   })
 })
 
@@ -175,14 +203,43 @@ router.get('/category/:id', function(req, res) {
 })
 
 // All users
-router.get('/user', function(req, res) {
-  User.find({}).exec(function(err, user) {
-    if(err){
-      res.send('Xatolik yuz berdi.')
-    } else {
-      res.render('users',{user})
+router.get('/user', paginatedResultsusers(User), function(req, res) {
+  var limits = 10 // limit for items per page
+  var user, previous, next
+  if(res.paginatedResults.results) {
+    user = res.paginatedResults.results
+  }
+  if(res.paginatedResults.previous) {
+    previous = res.paginatedResults.previous
+  }
+  if(res.paginatedResults.next) {
+    next = res.paginatedResults.next
+  }
+  var current = req.query.page
+  var starting
+  if(current > 1) {
+    starting = (req.query.page-1) * req.query.limit + 1
+  } else {
+    starting = 1
+  }
+  var limit = req.query.limit
+  User.find({}).exec(function(err, users) {
+    if(users) {
+      var total = users.length
+      var data = users.length / req.query.limit
+      if (data === parseInt(data, 10)) {
+        var lastpage = Math.floor(users.length / req.query.limit)
+      } else { var lastpage = Math.floor(users.length / req.query.limit) + 1 }
+
+      if(req.query.limit && req.query.page) {
+        res.render('users',{user, previous, next, current, starting, limits, lastpage, limit, total})
+      } else {
+        res.redirect('user?page=1&limit=' + limits)
+      }
     }
   })
+
+
 })
 
 router.get('/order/:id', function(req, res) {
@@ -254,31 +311,46 @@ router.get('/orders', paginatedResults(Order), (req, res) => {
     status = 0 //all
   }
   var total = 0
-  if(status!=0) {
-    Order.find({status: status}).exec(function(err, order) {
-      for(var i=0; i < order.length; i++) {
-        total+=order[i].total
+  var limit = req.query.limit
+  if(status == 1 || status == 2 || status == 3 || status == 4) {
+    Order.find({status: status}).exec(function(err, result) {
+      var all = result.length
+      for(var i=0; i < result.length; i++) {
+        total+=result[i].total
       }
-      if(order) {
+
+      var data = result.length / req.query.limit
+      if (data === parseInt(data, 10)) {
+        var lastpage = Math.floor(result.length / req.query.limit)
+      } else { var lastpage = Math.floor(result.length / req.query.limit) + 1 }
+
+      if(result) {
         if(req.query.limit && req.query.page) {
-          res.render('orders-page',{orders, previous, next, current, starting, channel, limits, status, total})
+          res.render('orders-page',{orders, previous, next, current, starting, limits, status, total, limit, lastpage, all})
         } else {
-          res.redirect('orders?page=1&limit=' + limits)
+          res.redirect('orders?page=1&limit=' + limits + '&status=0')
         }
       }else {
         res.render(404)
       }
     })
-  } else {
+  } else if(status == 0) {
     Order.find({}).exec(function(err, order) {
+      var all = order.length
       for(var i=0; i < order.length; i++) {
         total+=order[i].total
       }
+      var data = order.length / req.query.limit
+
+      if (data === parseInt(data, 10)) {
+        var lastpage = Math.floor(order.length / req.query.limit)
+      } else { var lastpage = Math.floor(order.length / req.query.limit) + 1 }
+
       if(order) {
         if(req.query.limit && req.query.page) {
-          res.render('orders-page',{orders, previous, next, current, starting, channel, limits, status, total})
+          res.render('orders-page',{orders, previous, next, current, starting, channel, limits, status, total, limit, lastpage, all})
         } else {
-          res.redirect('orders?page=1&limit=' + limits)
+          res.redirect('orders?page=1&limit=' + limits + '&status=0')
         }
       }else {
         res.render(404)
@@ -303,14 +375,15 @@ function paginatedResults(model) {
     const endIndex = page * limit
 
     const results = {}
-    if(req.query.status > 0) {
+    if(req.query.status == 1 || req.query.status == 2 || req.query.status == 3|| req.query.status == 4) {
       if (endIndex < await model.find({status: status}).countDocuments().exec()) {
         results.next = {
           page: page + 1,
           limit: limit
         }
       }
-    }else{
+    }
+    if(req.query.status == 0){
       if (endIndex < await model.countDocuments().exec()) {
         results.next = {
           page: page + 1,
@@ -341,6 +414,41 @@ function paginatedResults(model) {
   }
 }
 
+function paginatedResultsusers(model) {
+  return async (req, res, next) => {
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+    const status = parseInt(req.query.status)
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const results = {}
+    if (endIndex < await model.countDocuments().exec()) {
+      results.next = {
+        page: page + 1,
+        limit: limit
+      }
+    }
+    
+    
+    
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit
+      }
+    }
+    try {
+      results.results = await model.find().limit(limit).skip(startIndex).exec()
+
+      res.paginatedResults = results
+      next()
+    } catch (e) {
+      res.status(500).json({ message: e.message })
+    }
+  }
+}
 // Error handler
 router.get('*', function(req, res) {  
   res.render('404');

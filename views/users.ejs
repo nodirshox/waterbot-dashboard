@@ -11,13 +11,13 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>Nomi</th>
-            <th style="width: 40px">Narx</th>
+            <th style="width: 40px">Telefon</th>
           </tr>
         </thead>
         <tbody>
           <% user.map((users, i) => { %>
           <tr>
-            <td><%= i+1 %>.</td>
+            <td><%= starting + i %></td>
             <td><%= users.firstname %></td>
             <td><span class=""><%= users.phone_number %></span></td>
           </tr>
@@ -25,6 +25,20 @@
         </tbody>
       </table>
     </div>
+    <div class="card-body clearfix">
+      <b>Jami:</b> <%= total %> ta
+    </div>
+    <% if(total > 0) { %>
+    <div class="card-footer clearfix">
+      <ul class="pagination pagination-sm m-0 float-right">
+        <% if(current > 1) { %><li class="page-item"><a class="page-link" href="/user?page=1&limit=<%= limit %>"><i class="fa fa-angle-double-left nav_icon"></i></a></li><% } %>
+        <% if(previous) { %><li class="page-item"><a class="page-link" href="/user?page=<%= previous.page %>&limit=<%= previous.limit %>"><i class="fa fa-arrow-left nav_icon"></i></a></li><% } %>
+        <li class="page-item"><a class="page-link" href="#"><b><%= current %></b></a></li>
+        <% if(next) { %><li class="page-item"><a class="page-link" href="/user?page=<%= next.page %>&limit=<%= next.limit %>"><i class="fa fa-arrow-right nav_icon"></i></a></li><% } %>
+        <% if(current != lastpage) { %><li class="page-item"><a class="page-link" href="/user?page=<%= lastpage %>&limit=<%= limit %>"><i class="fa fa-angle-double-right nav_icon"></i></a></li><% } %>        
+      </ul>
+    </div>
+    <% } %>
   </div>
 </div>
 

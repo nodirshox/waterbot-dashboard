@@ -6,7 +6,7 @@
       <h3 class="card-title"><% if(status == 0) { %>Barcha buyurtmalar<% } else if(status == 1) { %>Buyurtmachilarga berilganlar<% } else if(status == 2) { %>Yetkazib berilganlar<% } else if(status == 3) { %>Yangi buyurtmalar <% } else if(status == 4) {%>Yetkazilmagan<% } else { %> <% } %> </h3>
       <div class="card-tools">
         <ul class="pagination pagination-sm m-0 float-right">
-          <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>"><i class="fa fa-th nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=0"><i class="fa fa-th nav_icon"></i></a></li>
           <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=3"><i class="fa fa-clock nav_icon"></i></a></li>
           <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=1"><i class="fa fa-car nav_icon"></i></a></li>
           <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=2"><i class="fa fa-check-circle nav_icon"></i></a></li>
@@ -27,7 +27,7 @@
         <tbody>
           <% orders.map((users, i) => { %>
           <tr onclick="location.href='/order/<%= users._id %>';" class="mycursor">
-            <td><%= starting + i %>.</td>
+            <td><%= starting + i %></td>
             <td><a href="/order/<%= users._id %>"><%= users.firstname %></a></td>
             <td><%= users.orderdate %></td>
             <td>
@@ -44,16 +44,19 @@
       </table>
     </div>
     <div class="card-body clearfix">
-      <b>Umumiy:</b> <%= total.toLocaleString() %> so'm
+      <b>Umumiy:</b> <%= total.toLocaleString() %> so'm | <%= all %> ta
     </div>
+    <% if(all > 0) { %>
     <div class="card-footer clearfix">
       <ul class="pagination pagination-sm m-0 float-right">
-        <% if(previous) { %><li class="page-item"><a class="page-link" href="/orders/?page=<%= previous.page %>&limit=<%= previous.limit %>">«</a></li><% } %>
-        <li class="page-item"><a class="page-link" href="#"><%= current %></a></li>
-        <% if(next) { %><li class="page-item"><a class="page-link" href="/orders/?page=<%= next.page %>&limit=<%= next.limit %>">»</a></li> <% } %>
+        <% if(current > 1) { %><li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limit %>&status=<%= status %>"><i class="fa fa-angle-double-left nav_icon"></i></a></li><% } %>
+        <% if(previous) { %><li class="page-item"><a class="page-link" href="/orders?page=<%= previous.page %>&limit=<%= previous.limit %>&status=<%= status %>"><i class="fa fa-arrow-left nav_icon"></i></a></li><% } %>
+        <li class="page-item"><a class="page-link" href="#"><b><%= current %></b></a></li>
+        <% if(next) { %><li class="page-item"><a class="page-link" href="/orders?page=<%= next.page %>&limit=<%= next.limit %>&status=<%= status %>"><i class="fa fa-arrow-right nav_icon"></i></a></li><% } %>
+        <% if(current != lastpage) { %><li class="page-item"><a class="page-link" href="/orders?page=<%= lastpage %>&limit=<%= limit %>&status=<%= status %>"><i class="fa fa-angle-double-right nav_icon"></i></a></li><% } %>
       </ul>
     </div>
-
+    <% } %>
   </div>
 </div>
 
