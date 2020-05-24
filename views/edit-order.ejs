@@ -21,13 +21,13 @@
         <div class="form-group">
             <label>Holati</label><br />
             <select id="status" name="status" class="form-control">
-                <% for(var i = 0; i <= 3; i++ ) {
+                <% for(var i = 1; i <= 4; i++ ) {
                     var myoption
                     var item=""
                     if(product.status === i) {
                         myoption = "selected"
                     } else { myoption = "" }
-                    if(i === 0) {
+                    if(i === 4) {
                         item = "Buyurtma yetkazilmadi" 
                     } else if ( i === 1) {
                         item = "Buyurtma buyurtmachilarga berilgan"

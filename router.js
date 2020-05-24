@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
                 if(err)
                   res.send('Xatolik yuz berdi')
                 else
-                  res.render('home', { items, categories, orders, users })
+                  res.render('home', { items, categories, orders, users, channel })
               })
 
             }
@@ -184,151 +184,7 @@ router.get('/user', function(req, res) {
     }
   })
 })
-// All orders
-router.get('/order', function(req, res) {
-  Order.find({}).sort({registration: 'desc'}).exec(function(err, order) {    
-    var total = 0
-    for(var i=0; i < order.length; i++) {
-      total+=order[i].total
-    }
-    const html = order.map((f, i) => {
-      var obj = {
-          firstname: f.firstname,
-          orderdate: f.orderdate,
-          status: f.status,
-          _id: f._id
-      }
-      return obj
 
-  })
-    html.sort(function(a, b){
-      var aa = a.orderdate.split('.').reverse().join(),
-          bb = b.orderdate.split('.').reverse().join();
-      return aa < bb ? -1 : (aa > bb ? 1 : 0);
-      });
-    if(err){
-      res.send('Xatolik yuz berdi.')
-    } else {
-      res.render('orders',{html, channel, total})
-    }
-  })
-})
-// Active orders
-router.get('/order/active', function(req, res) {
-  Order.find({status: 3}).exec(function(err, order) {
-    var total = 0
-    for(var i=0; i < order.length; i++) {
-      total+=order[i].total
-    }
-    const html = order.map((f, i) => {
-      var obj = {
-          firstname: f.firstname,
-          orderdate: f.orderdate,
-          status: f.status,
-          _id: f._id
-      }
-      return obj
-
-  })
-    html.sort(function(a, b){
-      var aa = a.orderdate.split('.').reverse().join(),
-          bb = b.orderdate.split('.').reverse().join();
-      return aa < bb ? -1 : (aa > bb ? 1 : 0);
-      });
-    if(err){
-      res.send('Xatolik yuz berdi.')
-    } else {
-      res.render('orders',{html, channel, total})
-    }
-  })
-})
-// Finished order
-router.get('/order/finished', function(req, res) {
-  Order.find({status: 2}).exec(function(err, order) {
-    var total = 0
-    for(var i=0; i < order.length; i++) {
-      total+=order[i].total
-    }
-    const html = order.map((f, i) => {
-      var obj = {
-          firstname: f.firstname,
-          orderdate: f.orderdate,
-          status: f.status,
-          _id: f._id
-      }
-      return obj
-
-  })
-    html.sort(function(a, b){
-      var aa = a.orderdate.split('.').reverse().join(),
-          bb = b.orderdate.split('.').reverse().join();
-      return aa < bb ? -1 : (aa > bb ? 1 : 0);
-      });
-    if(err){
-      res.send('Xatolik yuz berdi.')
-    } else {
-      res.render('orders',{html, channel, total})
-    }
-  })
-})
-// Finished order
-router.get('/order/ondelivery', function(req, res) {
-  Order.find({status: 1}).exec(function(err, order) {
-    var total = 0
-    for(var i=0; i < order.length; i++) {
-      total+=order[i].total
-    }
-    const html = order.map((f, i) => {
-      var obj = {
-          firstname: f.firstname,
-          orderdate: f.orderdate,
-          status: f.status,
-          _id: f._id
-      }
-      return obj
-
-  })
-    html.sort(function(a, b){
-      var aa = a.orderdate.split('.').reverse().join(),
-          bb = b.orderdate.split('.').reverse().join();
-      return aa < bb ? -1 : (aa > bb ? 1 : 0);
-      });
-    if(err){
-      res.send('Xatolik yuz berdi.')
-    } else {
-      res.render('orders',{html, channel, total})
-    }
-  })
-})
-// Undone
-router.get('/order/undone', function(req, res) {
-  Order.find({status: 0}).exec(function(err, order) {
-    var total = 0
-    for(var i=0; i < order.length; i++) {
-      total+=order[i].total
-    }
-    const html = order.map((f, i) => {
-      var obj = {
-          firstname: f.firstname,
-          orderdate: f.orderdate,
-          status: f.status,
-          _id: f._id
-      }
-      return obj
-
-  })
-    html.sort(function(a, b){
-      var aa = a.orderdate.split('.').reverse().join(),
-          bb = b.orderdate.split('.').reverse().join();
-      return aa < bb ? -1 : (aa > bb ? 1 : 0);
-      });
-    if(err){
-      res.send('Xatolik yuz berdi.')
-    } else {
-      res.render('orders',{html, channel, total})
-    }
-  })
-})
 router.get('/order/:id', function(req, res) {
   Order.findOne({ _id: req.params.id }).exec(function(err, cat) {
     if(err) {
@@ -353,9 +209,141 @@ router.post('/edit-order/:id', function(req, res) {
     res.redirect(`/order/${req.params.id}`)
   })
 })
+
+router.get('/orders', paginatedResults(Order), (req, res) => {
+    
+  var limits = 10 // limit for items per page
+  // order items by orderdate
+  const html = res.paginatedResults.results.map((f, i) => {
+      var obj = {
+          firstname: f.firstname,
+          orderdate: f.orderdate,
+          status: f.status,
+          _id: f._id
+      }
+      return obj
+
+  })
+  html.sort(function(a, b){
+    var aa = a.orderdate.split('.').reverse().join(),
+        bb = b.orderdate.split('.').reverse().join();
+    return aa < bb ? -1 : (aa > bb ? 1 : 0);
+  });
+  
+  var orders, previous, next
+  if(res.paginatedResults.results) {
+    orders = html
+  }
+  if(res.paginatedResults.previous) {
+    previous = res.paginatedResults.previous
+  }
+  if(res.paginatedResults.next) {
+    next = res.paginatedResults.next
+  }
+  var current = req.query.page
+  var starting
+  if(current > 1) {
+    starting = (req.query.page-1) * req.query.limit + 1
+  } else {
+    starting = 1
+  }
+  var status;
+  if(req.query.status) {
+    status = req.query.status
+  } else {
+    status = 0 //all
+  }
+  var total = 0
+  if(status!=0) {
+    Order.find({status: status}).exec(function(err, order) {
+      for(var i=0; i < order.length; i++) {
+        total+=order[i].total
+      }
+      if(order) {
+        if(req.query.limit && req.query.page) {
+          res.render('orders-page',{orders, previous, next, current, starting, channel, limits, status, total})
+        } else {
+          res.redirect('orders?page=1&limit=' + limits)
+        }
+      }else {
+        res.render(404)
+      }
+    })
+  } else {
+    Order.find({}).exec(function(err, order) {
+      for(var i=0; i < order.length; i++) {
+        total+=order[i].total
+      }
+      if(order) {
+        if(req.query.limit && req.query.page) {
+          res.render('orders-page',{orders, previous, next, current, starting, channel, limits, status, total})
+        } else {
+          res.redirect('orders?page=1&limit=' + limits)
+        }
+      }else {
+        res.render(404)
+      }
+    })
+  }
+  
+
+  
+
+})
+
+//functions
+
+function paginatedResults(model) {
+  return async (req, res, next) => {
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+    const status = parseInt(req.query.status)
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const results = {}
+    if(req.query.status > 0) {
+      if (endIndex < await model.find({status: status}).countDocuments().exec()) {
+        results.next = {
+          page: page + 1,
+          limit: limit
+        }
+      }
+    }else{
+      if (endIndex < await model.countDocuments().exec()) {
+        results.next = {
+          page: page + 1,
+          limit: limit
+        }
+      }
+    }
+    
+    
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit
+      }
+    }
+    try {
+      if(status) {
+        results.results = await model.find({status: status}).limit(limit).skip(startIndex).exec()
+      }else {
+        results.results = await model.find().limit(limit).skip(startIndex).exec()
+      }
+
+      res.paginatedResults = results
+      next()
+    } catch (e) {
+      res.status(500).json({ message: e.message })
+    }
+  }
+}
+
 // Error handler
 router.get('*', function(req, res) {  
-    res.render('404');
+  res.render('404');
 });
 
 module.exports = router

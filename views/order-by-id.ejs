@@ -2,7 +2,7 @@
       
 <div class="col-md-12">
   <div class="card card-default">
-    <div class="card-header">  <a href="/order" class="btn-default btn">Buyurtmalar</a></div>
+    <div class="card-header">  <a href="/orders" class="btn-default btn">Buyurtmalar</a></div>
     <div class="card-body">
       <b>Kim:</b> <%= cat.firstname %><br />
       <b>Telefon:</b> <%= cat.phone %><br />
@@ -19,7 +19,7 @@
           <i class="fa fa-check-circle nav_icon"></i> Buyurtma yetkazildi
         <% }else if(cat.status === 3) { %>
           <i class="fa fa-clock nav_icon"></i> Buyurtma kelib tushgan
-          <% } else if(cat.status === 0) { %>
+          <% } else if(cat.status === 4) { %>
             <i class="fa fa-trash-alt nav_icon"></i> Buyurtma yetkazilmadi
         
         <% } %>

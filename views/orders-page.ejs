@@ -1,0 +1,60 @@
+<%- include('includes/header') %>
+
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title"><% if(status == 0) { %>Barcha buyurtmalar<% } else if(status == 1) { %>Buyurtmachilarga berilganlar<% } else if(status == 2) { %>Yetkazib berilganlar<% } else if(status == 3) { %>Yangi buyurtmalar <% } else if(status == 4) {%>Yetkazilmagan<% } else { %> <% } %> </h3>
+      <div class="card-tools">
+        <ul class="pagination pagination-sm m-0 float-right">
+          <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>"><i class="fa fa-th nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=3"><i class="fa fa-clock nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=1"><i class="fa fa-car nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=2"><i class="fa fa-check-circle nav_icon"></i></a></li>
+          <li class="page-item"><a class="page-link" href="/orders?page=1&limit=<%= limits %>&status=4"><i class="fa fa-trash-alt nav_icon"></i></a></li>          
+        </ul>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10px">#</th>
+            <th>Kim</th>
+            <th style="width: 40px">Vaqt</th>
+            <th>Holati</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.map((users, i) => { %>
+          <tr onclick="location.href='/order/<%= users._id %>';" class="mycursor">
+            <td><%= starting + i %>.</td>
+            <td><a href="/order/<%= users._id %>"><%= users.firstname %></a></td>
+            <td><%= users.orderdate %></td>
+            <td>
+              <% if(users.status === 1) { 
+                %> <i class="fa fa-car nav_icon"></i> <% 
+              } else if (users.status === 3) { 
+                %> <i class="fa fa-clock nav_icon"></i> <% } else if (users.status === 2) { 
+              %> <i class="fa fa-check-circle nav_icon"></i> <% } else if (users.status === 4) { 
+                %> <i class="fa fa-trash-alt nav_icon"></i> <% } %>
+              </td>
+          </tr>
+          <%  }) %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-body clearfix">
+      <b>Umumiy:</b> <%= total.toLocaleString() %> so'm
+    </div>
+    <div class="card-footer clearfix">
+      <ul class="pagination pagination-sm m-0 float-right">
+        <% if(previous) { %><li class="page-item"><a class="page-link" href="/orders/?page=<%= previous.page %>&limit=<%= previous.limit %>">«</a></li><% } %>
+        <li class="page-item"><a class="page-link" href="#"><%= current %></a></li>
+        <% if(next) { %><li class="page-item"><a class="page-link" href="/orders/?page=<%= next.page %>&limit=<%= next.limit %>">»</a></li> <% } %>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<%- include('includes/footer') %>

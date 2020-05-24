@@ -19,10 +19,10 @@
         </div>
     </div>
     <div class="col-md-6 col-sm-6 col-12" >
-        <div class="info-box mycursor" onclick="location.href='/order/active';">
+        <div class="info-box mycursor" onclick="location.href='/orders';">
             <span class="info-box-icon bg-warning"><i class="far fa-envelope" ></i></span>
             <div class="info-box-content">
-                <span class="info-box-text"><a href="/order/active">Buyurtmalar</a></span>
+                <span class="info-box-text"><a href="/orders">Buyurtmalar</a></span>
                 <span class="info-box-number"><%= orders %></span>
             </div>
         </div>
@@ -33,6 +33,14 @@
             <div class="info-box-content">
                 <span class="info-box-text"><a href="/user">Foydalanuvchilar</a></span>
                 <span class="info-box-number"><%= users %></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-12" >
+        <div class="info-box mycursor" onclick="location.href='<%= channel %>';">
+            <span class="info-box-icon bg-primary"><i class="far fa-envelope"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text"><a href="<%= channel %>">Telegram kanal</a></span>
             </div>
         </div>
     </div>
