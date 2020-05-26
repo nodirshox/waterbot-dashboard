@@ -40,6 +40,13 @@ const orderSchema = new Schema({
     },
     total: {
         type: Number
+    },
+    orderid: {
+        type: Number,
+        default: 1
+    },
+    towhom: {
+        type: Number
     }
 
     

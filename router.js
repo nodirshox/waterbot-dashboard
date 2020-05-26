@@ -276,7 +276,8 @@ router.get('/orders', paginatedResults(Order), (req, res) => {
           firstname: f.firstname,
           orderdate: f.orderdate,
           status: f.status,
-          _id: f._id
+          _id: f._id,
+          orderid: f.orderid
       }
       return obj
 
