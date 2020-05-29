@@ -19,7 +19,7 @@
           <tr>
             <td><%= starting + i %></td>
             <td><%= users.firstname %></td>
-            <td><span class=""><%= users.phone_number %></span></td>
+            <td><span class=""><%= users.phone_number.slice(0, -4) + '****' %></span></td>
           </tr>
           <%  }) %>
         </tbody>

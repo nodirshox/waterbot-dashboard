@@ -20,7 +20,6 @@
           <tr>
             <th style="width: 10px">#</th>
             <th>Kim</th>
-            <th style="width: 40px">Vaqt</th>
             <th>Holati</th>
           </tr>
         </thead>
@@ -29,7 +28,6 @@
           <tr onclick="location.href='/order/<%= users._id %>';" class="mycursor">
             <td><%= starting + i %></td>
             <td><a href="/order/<%= users._id %>"><%= users.firstname %></a></td>
-            <td><%= users.orderdate %></td>
             <td>
               <% if(users.status === 1) { 
                 %> <i class="fa fa-car nav_icon"></i> <% 

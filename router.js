@@ -108,6 +108,7 @@ router.get('/new-item', function(req, res) {
   })
 })
 router.post('/new-item', function(req, res) {
+  /*
   var newItem = new Product(req.body);
   newItem.save((err, product) => {
     if(err) {
@@ -116,6 +117,8 @@ router.post('/new-item', function(req, res) {
       res.redirect('/item')
     }
   })
+  */
+   res.redirect(`/item`)
 })
 
 // Edit item
@@ -129,9 +132,12 @@ router.get('/edit/:id', function(req, res) {
   })
 })
 router.post('/edit/:id', function(req, res) {
+  /*
   Product.findOneAndUpdate({ _id: req.params.id }, {$set: req.body}, function(err, result) {
     res.redirect(`/item/${req.params.id}`)
   })
+  */
+ res.redirect(`/item`)
 })
 
 // Delete item
@@ -159,6 +165,7 @@ router.get('/category', function(req, res) {
 
 })
 router.post('/new-category', function(req, res) {
+  /*
   Category.create(req.body, function(err, product) {
     if(err) {
       res.send('Xatolik yuz berdi.')
@@ -166,6 +173,8 @@ router.post('/new-category', function(req, res) {
       res.redirect('/category')
     }
   })
+  */
+ res.redirect(`/category`)
 })
 // Edit category
 router.get('/edit-category/:id', function(req, res) {
@@ -178,9 +187,12 @@ router.get('/edit-category/:id', function(req, res) {
   })
 })
 router.post('/edit-category/:id', function(req, res) {
+  /*
   Category.findOneAndUpdate({ _id: req.params.id }, {$set: req.body}, function(err, result) {
     res.redirect('/category')
   })
+  */
+ res.redirect(`/category`)
 })
 
 // Delete category
@@ -277,17 +289,19 @@ router.get('/orders', paginatedResults(Order), (req, res) => {
           orderdate: f.orderdate,
           status: f.status,
           _id: f._id,
-          orderid: f.orderid
+          orderid: f.orderid,
+          registration: f.registration
       }
       return obj
 
   })
+  /*
   html.sort(function(a, b){
     var aa = a.orderdate.split('.').reverse().join(),
         bb = b.orderdate.split('.').reverse().join();
     return aa < bb ? -1 : (aa > bb ? 1 : 0);
   });
-  
+  */
   var orders, previous, next
   if(res.paginatedResults.results) {
     orders = html

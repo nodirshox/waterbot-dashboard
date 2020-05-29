@@ -10,9 +10,7 @@
       <b>Buyurtma:</b> <%= cat.order %><br />
       <b>Umumiy:</b> <%= cat.total.toLocaleString() %> so'm<br />
       <b>Registratsiya payti:</b> <%= time %><br />
-      <b>Yetkazib berish vaqti:</b> <%= cat.orderdate %>, <%= cat.ordertime %><br />
       <b>Manzil:</b> <%= cat.location %><br />
-      <b>Yetkazildi:</b> <%= cat.delivery_person %><br />
       <b>Buyurtma holati:</b> <%if (cat.status === 1) { %>
         <i class="fa fa-car nav_icon"></i> Buyurtma buyurtmachilarga berilgan
         <% } else if(cat.status === 2) { %>
