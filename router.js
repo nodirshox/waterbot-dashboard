@@ -118,7 +118,7 @@ router.post('/new-item', function(req, res) {
     }
   })
   
-   res.redirect(`/item`)
+   //res.redirect(`/item`)
 })
 
 // Edit item
@@ -137,7 +137,7 @@ router.post('/edit/:id', function(req, res) {
     res.redirect(`/item/${req.params.id}`)
   })
   
- res.redirect(`/item`)
+ //res.redirect(`/item`)
 })
 
 // Delete item
@@ -174,7 +174,7 @@ router.post('/new-category', function(req, res) {
     }
   })
   
- res.redirect(`/category`)
+ //res.redirect(`/category`)
 })
 // Edit category
 router.get('/edit-category/:id', function(req, res) {
@@ -192,7 +192,7 @@ router.post('/edit-category/:id', function(req, res) {
     res.redirect('/category')
   })
   
- res.redirect(`/category`)
+ //res.redirect(`/category`)
 })
 
 // Delete category
